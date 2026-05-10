@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Mithraeum</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --void: #0a0a09;
+    --shadow: #14130f;
+    --stone: #2a2722;
+    --ash: #4a463d;
+    --bone: #c8c2b2;
+    --paper: #d8d2c2;
+    --chalk: #e8e2d2;
+    --rust: #8a3a1f;
+    --gold: #b89656;
+    --phosphor: #7a8a3a;
+    --rule: #ffffff14;
+    --rule-strong: #ffffff22;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--void);
+    color: var(--bone);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  body { min-height: 100vh; }
+
+  /* Subtle stone-grain noise overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle at 30% 20%, #ffffff04 0%, transparent 50%),
+                      radial-gradient(circle at 70% 80%, #ffffff03 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--chalk); }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky; top: 0;
+    background: var(--void);
+    border-bottom: 1px solid var(--rule);
+    z-index: 50;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .brand svg { display: block; }
+  .nav-links { display: flex; gap: 32px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ash); }
+  .nav-links a { white-space: nowrap; }
+  .nav-links a:hover { color: var(--paper); }
+  .nav-links a.active { color: var(--paper); }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 140px 0 120px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .hero-mark { display: flex; justify-content: flex-end; }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(48px, 7vw, 96px);
+    letter-spacing: 0.14em;
+    line-height: 1;
+    margin: 0 0 24px;
+    text-transform: uppercase;
+    color: var(--chalk);
+  }
+  .hero h1 .small { display: block; font-size: 0.32em; letter-spacing: 0.4em; color: var(--ash); margin-bottom: 32px; font-weight: 400; }
+  .hero .lede {
+    max-width: 540px;
+    font-size: 15px;
+    color: var(--paper);
+    line-height: 1.7;
+    margin: 0 0 32px;
+  }
+  .hero .lede em { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 17px; letter-spacing: 0.02em; }
+  .hero-meta {
+    display: flex; gap: 32px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash);
+  }
+  .hero-meta span b { color: var(--paper); font-weight: 500; }
+
+  /* ===== SECTION CHROME ===== */
+  section.s {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    margin-bottom: 56px;
+    align-items: baseline;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-eyebrow::before {
+    content: ""; width: 24px; height: 1px; background: var(--gold); display: inline-block;
+  }
+  .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: 0.12em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--chalk);
+    margin: 0;
+  }
+  .section-head h2 em { font-style: italic; color: var(--gold); font-weight: 400; }
+
+  /* ===== MANIFESTO ===== */
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .tenet {
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 24px;
+  }
+  .tenet-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .tenet h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .tenet p {
+    font-size: 13px;
+    color: var(--bone);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ===== PRODUCTS ===== */
+  .products {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .product {
+    display: grid;
+    grid-template-columns: 280px 1fr 260px;
+    gap: 48px;
+    padding: 40px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .product:last-child { border-bottom: 1px solid var(--rule); }
+  .product-id {
+    font-family: 'Cormorant Garamond', serif;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .product-id .codename {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--ash);
+    text-transform: uppercase;
+  }
+  .product-id .name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    color: var(--chalk);
+    line-height: 1;
+    font-weight: 500;
+  }
+  .product-id .latin {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .product-id .status {
+    margin-top: 4px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .status .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phosphor);
+    box-shadow: 0 0 8px var(--phosphor);
+  }
+  .status.dim .dot { background: var(--ash); box-shadow: none; }
+  .status.warn .dot { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+
+  .product-body {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .product-body p {
+    font-size: 14px;
+    color: var(--paper);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .product-actions { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border: 1px solid var(--rule-strong);
+    color: var(--paper);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: var(--paper); color: var(--void); border-color: var(--paper); }
+  .btn.gold { border-color: var(--gold); color: var(--gold); }
+  .btn.gold:hover { background: var(--gold); color: var(--void); }
+  .btn.disabled { color: var(--ash); border-color: var(--rule); cursor: not-allowed; }
+  .btn.disabled:hover { background: transparent; color: var(--ash); border-color: var(--rule); }
+
+  .product-meta {
+    border-left: 1px solid var(--rule-strong);
+    padding-left: 24px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .product-meta dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .product-meta dt { color: var(--ash); }
+  .product-meta dd { margin: 0; color: var(--paper); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; text-transform: none; font-size: 11px; }
+
+  /* ===== SKILLS ===== */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  .skill {
+    border-top: 1px solid var(--rule);
+    padding: 28px 24px 28px 0;
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .skill:nth-child(odd) { padding-right: 32px; }
+  .skill:nth-child(even) { padding-left: 24px; }
+  .skill-num { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 11px; letter-spacing: 0.2em; }
+  .skill-body h4 {
+    margin: 0 0 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--chalk);
+    font-weight: 500;
+  }
+  .skill-body h4 .ext { color: var(--ash); }
+  .skill-body p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--bone);
+    line-height: 1.6;
+  }
+  .skill-meta { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); white-space: nowrap; }
+
+  .skills-empty {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--ash);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== RELEASES ===== */
+  .releases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .release {
+    padding: 28px 24px;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .release:last-child { border-right: none; }
+  .release-tag {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ash);
+  }
+  .release-tag b { color: var(--gold); font-weight: 500; }
+  .release-version {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    color: var(--chalk);
+    margin: 0;
+    line-height: 1;
+  }
+  .release-msg {
+    font-size: 12px;
+    color: var(--bone);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .release-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin-top: auto;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 80px 0 48px;
+    color: var(--ash);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  .foot-col h5 {
+    margin: 0 0 16px;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--paper);
+    font-weight: 500;
+  }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .foot-col a { color: var(--bone); font-size: 12px; letter-spacing: 0.06em; }
+  .foot-col a:hover { color: var(--gold); }
+  .foot-bottom {
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .foot-bottom em { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); letter-spacing: 0.04em; font-size: 12px; text-transform: none; }
+
+  /* ===== UTIL ===== */
+  .blink { animation: blink 1.06s steps(2,end) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-mark { justify-content: flex-start; }
+    .section-head { grid-template-columns: 1fr; gap: 16px; }
+    .manifesto-grid { grid-template-columns: 1fr; gap: 32px; }
+    .product { grid-template-columns: 1fr; gap: 24px; }
+    .product-meta { border-left: none; border-top: 1px solid var(--rule-strong); padding-left: 0; padding-top: 16px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill:nth-child(odd) { padding-right: 0; }
+    .skill:nth-child(even) { padding-left: 0; }
+    .releases { grid-template-columns: 1fr; }
+    .release { border-right: none; border-bottom: 1px solid var(--rule); }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- NAV                                          -->
+<!-- ============================================ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <svg viewBox="0 0 80 80" width="22" height="22" fill="none">
+        <path d="M14 70 V40 a26 26 0 0 1 52 0 V70" stroke="currentColor" stroke-width="3"/>
+        <line x1="10" y1="70" x2="70" y2="70" stroke="currentColor" stroke-width="3"/>
+        <circle cx="40" cy="42" r="6" fill="var(--gold)"/>
+      </svg>
+      <span>Mithraeum</span>
+    </a>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#skills">Skills</a>
+      <a href="#releases">Releases</a>
+      <a href="https://github.com/mithraeums" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================ -->
+<!-- HERO                                         -->
+<!-- ============================================ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>
+        <span class="small">— ORDO MITHRAEUM · MMXXVI —</span>
+        Tools from<br/>the inner<br/>chamber<span class="blink" style="color: var(--gold);">.</span>
+      </h1>
+      <p class="lede">
+        Mithraeum builds <em>quiet</em> software for people who write code by hand. We make small, durable instruments: text editors, agents, and the local models that run them. Bring your own keys. Bring your own weights. Nothing phones home that you didn't tell it to. Our agent understands and holds onto context, so you're spending less time catching it up to speed and more time on your vision.
+      </p>
+      <div class="hero-meta">
+        <span><b id="m-repo-count">3</b> repositories</span>
+        <span><b id="m-product-count">3</b> products</span>
+        <span><b id="m-license">GPL-3.0</b></span>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <svg viewBox="0 0 240 240" width="280" height="280" fill="none" style="opacity: 0.95;">
+        <!-- outer carved frame -->
+        <rect x="6" y="6" width="228" height="228" stroke="var(--ash)" stroke-width="1"/>
+        <!-- spring line -->
+        <line x1="40" y1="108" x2="200" y2="108" stroke="var(--ash)" stroke-width="1" stroke-dasharray="3 4"/>
+        <!-- main arch -->
+        <path d="M40 204 V108 a80 80 0 0 1 160 0 V204" stroke="var(--paper)" stroke-width="3"/>
+        <!-- ground line -->
+        <line x1="20" y1="204" x2="220" y2="204" stroke="var(--paper)" stroke-width="3"/>
+        <!-- gold oculus / sun through arch -->
+        <circle cx="120" cy="118" r="22" fill="var(--gold)"/>
+        <circle cx="120" cy="118" r="34" stroke="var(--gold)" stroke-width="0.5" opacity="0.4"/>
+        <!-- corner ticks -->
+        <line x1="6" y1="6" x2="6" y2="20" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="6" y1="6" x2="20" y2="6" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="234" y1="6" x2="220" y2="6" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="234" y1="6" x2="234" y2="20" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="6" y1="234" x2="6" y2="220" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="6" y1="234" x2="20" y2="234" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="234" y1="234" x2="220" y2="234" stroke="var(--gold)" stroke-width="1"/>
+        <line x1="234" y1="234" x2="234" y2="220" stroke="var(--gold)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- MANIFESTO                                    -->
+<!-- ============================================ -->
+<section class="s" id="creed">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">I · Creed</div>
+      <h2>Software as <em>liturgy</em>: small, repeated, by hand.</h2>
+    </div>
+    <div class="manifesto-grid">
+      <div class="tenet">
+        <div class="tenet-num">— I —</div>
+        <h3>Local first</h3>
+        <p>While our agent supports local and frontier models alike. We put local first; your text, your keys, your weights. No telemetry. No silent network. The cursor is a private place.</p>
+      </div>
+      <div class="tenet">
+        <div class="tenet-num">— II —</div>
+        <h3>Single binary</h3>
+        <p>One file. One C source. No JavaScript runtime to swallow your editor. The tool fits in a head.</p>
+      </div>
+      <div class="tenet">
+        <div class="tenet-num">— III —</div>
+        <h3>Bring your own deity</h3>
+        <p>Any model. Any provider. Any prompt. The agent is a peer at your terminal, not a stranger in the cloud.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- PRODUCTS                                     -->
+<!-- ============================================ -->
+<section class="s" id="products">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">II · Suite</div>
+      <h2>Three instruments, <em>one chamber</em>.</h2>
+    </div>
+    <div class="products">
+
+      <!-- ============== HAKO ============== -->
+      <article class="product" data-repo="mithraeums/hako">
+        <div class="product-id">
+          <div class="codename">— I — editor</div>
+          <div class="name">hako<span style="color: var(--gold);">_</span></div>
+          <div class="latin">箱 · the box</div>
+          <div class="status"><span class="dot"></span> stable</div>
+        </div>
+        <div class="product-body">
+          <p>A single-file modal text editor written in C. Vi-bound, language-aware, and built to last a decade. Hako is the workspace — a quiet box around the cursor where everything else hangs off.</p>
+          <p style="color: var(--ash); font-size: 12px;">— Modal editing · 40+ syntax modes · Configurable from a single header file · Zero runtime dependencies.</p>
+          <div class="product-actions">
+            <a class="btn gold" href="https://github.com/mithraeums/hako" target="_blank" rel="noopener">Source ↗</a>
+            <a class="btn" href="https://github.com/mithraeums/hako/releases" target="_blank" rel="noopener">Releases</a>
+            <a class="btn" href="#hako-readme">Read</a>
+          </div>
+        </div>
+        <div class="product-meta">
+          <dl>
+            <dt>VERSION</dt><dd data-field="version">v0.0.9</dd>
+            <dt>LANG</dt><dd data-field="lang">C</dd>
+            <dt>STARS</dt><dd data-field="stars">—</dd>
+            <dt>UPDATED</dt><dd data-field="updated">2026-05-08</dd>
+            <dt>LICENSE</dt><dd data-field="license">GPL-3.0</dd>
+          </dl>
+        </div>
+      </article>
+
+      <!-- ============== CLAW (REI) ============== -->
+      <article class="product" data-repo="mithraeums/skills">
+        <div class="product-id">
+          <div class="codename">— II — agent</div>
+          <div class="name">hakoCLAW</div>
+          <div class="latin">"rei" · the thing-itself</div>
+          <div class="status"><span class="dot"></span> stable · solo</div>
+        </div>
+        <div class="product-body">
+          <p>The agent that lives inside hako, addressable as <code style="color: var(--gold); font-family: 'JetBrains Mono', monospace;">:rei</code>. Customizable, model-agnostic, skill-driven. Runs against any provider you wire it to — including local weights through hakoAI when ready.</p>
+          <p style="color: var(--ash); font-size: 12px;">— Skills are markdown-defined behaviors. Drop a folder in <code style="color: var(--bone);">skills/</code> and CLAW invokes it. Community PRs welcome.</p>
+          <div class="product-actions">
+            <a class="btn gold" href="#claw-curl" id="claw-curl-btn">curl install ↗</a>
+            <a class="btn" href="https://github.com/mithraeums/skills" target="_blank" rel="noopener">Skills repo</a>
+            <a class="btn" href="#skills">Browse skills</a>
+          </div>
+        </div>
+        <div class="product-meta">
+          <dl>
+            <dt>STATUS</dt><dd>standalone</dd>
+            <dt>SKILLS</dt><dd data-field="skill-count">1</dd>
+            <dt>BACKENDS</dt><dd>any</dd>
+            <dt>UPDATED</dt><dd data-field="claw-updated">—</dd>
+          </dl>
+        </div>
+      </article>
+
+      <!-- ============== HAKO AI ============== -->
+      <article class="product" data-repo="mithraeums/hakoAI">
+        <div class="product-id">
+          <div class="codename">— III — models</div>
+          <div class="name">hakoAI</div>
+          <div class="latin">in officina · in the workshop</div>
+          <div class="status warn"><span class="dot"></span> in production</div>
+        </div>
+        <div class="product-body">
+          <p>Local models, trained for the cursor. Small enough to run on your machine; tuned for the kinds of edits a programmer actually asks for. The repo is private until the first weights ship.</p>
+          <p style="color: var(--ash); font-size: 12px;">— No cloud round-trip. No prompt logging. Architecture and training data documented when released.</p>
+          <div class="product-actions">
+            <button class="btn disabled" disabled>Repository · private</button>
+            <a class="btn" href="#claw-curl">Notify me</a>
+          </div>
+        </div>
+        <div class="product-meta">
+          <dl>
+            <dt>STATUS</dt><dd>training</dd>
+            <dt>TARGET</dt><dd>local · CPU + GPU</dd>
+            <dt>RELEASE</dt><dd>TBD</dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SKILLS                                       -->
+<!-- ============================================ -->
+<section class="s" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">III · Skills</div>
+      <h2>Behaviors for <em>CLAW</em>, by name.</h2>
+    </div>
+    <p style="max-width: 640px; color: var(--bone); font-size: 13px; margin: -32px 0 32px;">
+      Each skill is a folder in <a href="https://github.com/mithraeums/skills" target="_blank" rel="noopener" style="color: var(--gold);">mithraeums/skills</a> containing a <code style="color: var(--paper);">SKILL.md</code> and any helpers. CLAW loads them on startup. Open a PR to add yours — the rite is the README.
+    </p>
+    <div class="skills-grid" id="skills-grid">
+      <!-- Skills are populated at build time from the repo. Default content is the static fallback. -->
+      <div class="skill">
+        <div class="skill-num">— 01 —</div>
+        <div class="skill-body">
+          <h4>read-pdf<span class="ext">/</span></h4>
+          <p>Extracts text and structure from a PDF on disk. Handed to CLAW so the agent can answer questions about a document without re-uploading it.</p>
+        </div>
+        <div class="skill-meta">v1 · markdown</div>
+      </div>
+      <!-- Placeholder rows shown faintly to indicate the slot -->
+      <div class="skill" style="opacity: 0.35;">
+        <div class="skill-num">— 02 —</div>
+        <div class="skill-body">
+          <h4 style="font-style: italic; color: var(--ash);">your skill here</h4>
+          <p style="color: var(--ash);">Open a PR against <code>mithraeums/skills</code>. Folder name becomes the invocation.</p>
+        </div>
+        <div class="skill-meta">— pending —</div>
+      </div>
+    </div>
+    <div style="margin-top: 32px; display: flex; gap: 14px;">
+      <a class="btn" href="https://github.com/mithraeums/skills" target="_blank" rel="noopener">Browse repo ↗</a>
+      <a class="btn" href="https://github.com/mithraeums/skills/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- RELEASES                                     -->
+<!-- ============================================ -->
+<section class="s" id="releases">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">IV · Releases</div>
+      <h2>Latest from <em>each chamber</em>.</h2>
+    </div>
+    <div class="releases" id="releases-grid">
+      <div class="release" data-repo="mithraeums/hako">
+        <div class="release-tag"><span>HAKO</span><b data-field="release-tag">v0.0.9</b></div>
+        <h3 class="release-version" data-field="release-title">caret &amp; modes</h3>
+        <p class="release-msg" data-field="release-body">Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.</p>
+        <div class="release-date" data-field="release-date">2026-05-02</div>
+      </div>
+      <div class="release" data-repo="mithraeums/skills">
+        <div class="release-tag"><span>SKILLS</span><b data-field="release-tag">— pre-1.0 —</b></div>
+        <h3 class="release-version" data-field="release-title">read-pdf</h3>
+        <p class="release-msg" data-field="release-body">First skill landed. Defines the SKILL.md schema CLAW will load against. PRs open for community contributions.</p>
+        <div class="release-date" data-field="release-date">2026-04-22</div>
+      </div>
+      <div class="release">
+        <div class="release-tag"><span>HAKO·AI</span><b style="color: var(--ash);">— in production —</b></div>
+        <h3 class="release-version" style="color: var(--ash); font-style: italic;">forthcoming</h3>
+        <p class="release-msg">First local weights aimed for the v0.1 hako cycle. Repo opens with the release.</p>
+        <div class="release-date">— TBD —</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- FOOTER                                       -->
+<!-- ============================================ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h5>MITHRAEUM</h5>
+        <p style="margin: 0 0 16px; color: var(--bone); font-size: 12px; line-height: 1.7; max-width: 320px;">
+          The chamber beneath the chamber. We build small instruments and release them under copyleft. Take what is useful.
+        </p>
+        <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 13px; letter-spacing: 0.02em;">
+          — deus sol invictus mithras —
+        </p>
+      </div>
+      <div class="foot-col">
+        <h5>SUITE</h5>
+        <ul>
+          <li><a href="#products">hako</a></li>
+          <li><a href="#products">hakoCLAW</a></li>
+          <li><a href="#products">hakoAI</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>SOURCE</h5>
+        <ul>
+          <li><a href="https://github.com/mithraeums" target="_blank" rel="noopener">github.com/mithraeums</a></li>
+          <li><a href="https://github.com/mithraeums/hako" target="_blank" rel="noopener">/hako</a></li>
+          <li><a href="https://github.com/mithraeums/skills" target="_blank" rel="noopener">/skills</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>CONTACT</h5>
+        <ul>
+          <li><a href="https://github.com/mithraeums" target="_blank" rel="noopener">@mithraeums</a></li>
+          <li><a href="#">issues ↗</a></li>
+          <li><a href="#">discussions ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© MMXXVI · <em>ordo mithraeum</em> · GPL-3.0</span>
+      <span data-field="build-stamp">— BUILD · 2026.05.08 —</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================ -->
+<!-- BUILD-TIME DATA INJECTION                    -->
+<!-- ============================================ -->
+<!--
+  This <script type="application/json" id="mithraeum-data"> block is rewritten
+  at build time by .github/workflows/build.yml using the GitHub REST API.
+
+  Schema:
+  {
+    "repos": {
+      "hako":   { "version": "v0.0.9", "stars": 0, "updated": "2026-05-08", "license": "GPL-3.0", "lang": "C" },
+      "skills": { "version": "—",       "stars": 0, "updated": "2026-04-22", "skillCount": 1 },
+      "hakoAI": { "private": true }
+    },
+    "skills": [
+      { "slug": "read-pdf", "title": "read-pdf", "summary": "...", "version": "v1" }
+    ],
+    "releases": [
+      { "repo": "hako",   "tag": "v0.0.9", "title": "caret & modes", "body": "...", "date": "2026-05-02" },
+      { "repo": "skills", "tag": "—",       "title": "read-pdf",      "body": "...", "date": "2026-04-22" }
+    ],
+    "build": "2026-05-08T12:00:00Z"
+  }
+-->
+<script type="application/json" id="mithraeum-data">
+{
+  "repos": {
+    "hako":   { "version": "v0.0.9", "stars": 0, "updated": "2026-05-08", "license": "GPL-3.0", "lang": "C" },
+    "skills": { "version": "—",       "stars": 0, "updated": "2026-04-22", "skillCount": 1 },
+    "hakoAI": { "private": true }
+  },
+  "skills": [
+    { "slug": "read-pdf", "title": "read-pdf", "summary": "Extracts text and structure from a PDF on disk. Handed to CLAW so the agent can answer questions about a document without re-uploading it.", "version": "v1" }
+  ],
+  "releases": [
+    { "repo": "hako",   "tag": "v0.0.9", "title": "caret & modes", "body": "Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.", "date": "2026-05-02" },
+    { "repo": "skills", "tag": "—",       "title": "read-pdf",      "body": "First skill landed. Defines the SKILL.md schema CLAW will load against. PRs open for community contributions.", "date": "2026-04-22" }
+  ],
+  "build": "2026-05-08"
+}
+</script>
+
+<script>
+// Hydrate the page from the build-time data block.
+(function() {
+  const dataEl = document.getElementById("mithraeum-data");
+  if (!dataEl) return;
+  let data;
+  try { data = JSON.parse(dataEl.textContent); } catch (e) { return; }
+
+  // Hero meta
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val != null) el.textContent = val; };
+
+  // Product fields
+  document.querySelectorAll(".product").forEach(p => {
+    const repo = p.dataset.repo;
+    if (!repo) return;
+    const slug = repo.split("/")[1];
+    const info = data.repos[slug];
+    if (!info) return;
+    p.querySelectorAll("[data-field]").forEach(el => {
+      const f = el.dataset.field;
+      if (f === "version" && info.version) el.textContent = info.version;
+      if (f === "stars" && info.stars != null) el.textContent = info.stars;
+      if (f === "updated" && info.updated) el.textContent = info.updated;
+      if (f === "license" && info.license) el.textContent = info.license;
+      if (f === "lang" && info.lang) el.textContent = info.lang;
+      if (f === "skill-count" && info.skillCount != null) el.textContent = info.skillCount;
+      if (f === "claw-updated" && info.updated) el.textContent = info.updated;
+    });
+  });
+
+  // Skills grid
+  if (data.skills && data.skills.length) {
+    const grid = document.getElementById("skills-grid");
+    grid.innerHTML = "";
+    data.skills.forEach((s, i) => {
+      const num = String(i + 1).padStart(2, "0");
+      const row = document.createElement("div");
+      row.className = "skill";
+      row.innerHTML = `
+        <div class="skill-num">— ${num} —</div>
+        <div class="skill-body">
+          <h4>${s.title}<span class="ext">/</span></h4>
+          <p>${s.summary}</p>
+        </div>
+        <div class="skill-meta">${s.version || ""} · markdown</div>`;
+      grid.appendChild(row);
+    });
+    // Always show one ghost slot inviting PRs
+    const ghost = document.createElement("div");
+    ghost.className = "skill";
+    ghost.style.opacity = "0.35";
+    const nextNum = String(data.skills.length + 1).padStart(2, "0");
+    ghost.innerHTML = `
+      <div class="skill-num">— ${nextNum} —</div>
+      <div class="skill-body">
+        <h4 style="font-style: italic; color: var(--ash);">your skill here</h4>
+        <p style="color: var(--ash);">Open a PR against <code>mithraeums/skills</code>. Folder name becomes the invocation.</p>
+      </div>
+      <div class="skill-meta">— pending —</div>`;
+    grid.appendChild(ghost);
+  }
+
+  // Releases
+  if (data.releases) {
+    document.querySelectorAll(".release").forEach((r, idx) => {
+      const repoData = data.releases[idx];
+      if (!repoData) return;
+      r.querySelectorAll("[data-field]").forEach(el => {
+        const f = el.dataset.field;
+        if (f === "release-tag") el.textContent = repoData.tag || "";
+        if (f === "release-title") el.textContent = repoData.title || "";
+        if (f === "release-body") el.textContent = repoData.body || "";
+        if (f === "release-date") el.textContent = repoData.date || "";
+      });
+    });
+  }
+
+  // Skill count summary on CLAW card
+  const skillCountEl = document.querySelector('[data-field="skill-count"]');
+  if (skillCountEl && data.skills) skillCountEl.textContent = data.skills.length;
+
+  // Build stamp
+  if (data.build) {
+    const bs = document.querySelector('[data-field="build-stamp"]');
+    if (bs) bs.textContent = `— BUILD · ${data.build.replaceAll("-", ".")} —`;
+  }
+})();
+</script>
+
+</body>
+</html>
