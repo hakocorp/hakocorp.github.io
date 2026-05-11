@@ -417,6 +417,36 @@
     .release { border-right: none; border-bottom: 1px solid var(--rule); }
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 18px; }
+    .nav-inner { height: 56px; }
+    .nav-links { gap: 16px; font-size: 10px; letter-spacing: 0.12em; }
+    .nav-links a:nth-child(4) { display: none; } /* hide GitHub on very narrow — brand link still works */
+    .brand { font-size: 12px; letter-spacing: 0.22em; }
+    .brand svg { width: 18px; height: 18px; }
+
+    .hero { padding: 72px 0 64px; }
+    .hero h1 { font-size: clamp(34px, 11vw, 56px); line-height: 1.05; }
+    .hero h1 .small { font-size: 11px; letter-spacing: 0.32em; margin-bottom: 20px; }
+    .hero .lede { font-size: 14px; }
+    .hero-mark svg { width: 200px; height: 200px; }
+    .hero-meta { flex-wrap: wrap; gap: 12px 18px; }
+
+    .s { padding: 48px 0; }
+    .section-head h2 { font-size: 28px; line-height: 1.15; }
+    .section-eyebrow { font-size: 9px; letter-spacing: 0.18em; }
+
+    .product-id .name { font-size: 28px; }
+    .product-actions { flex-wrap: wrap; gap: 8px; }
+    .btn { padding: 8px 12px; font-size: 10px; }
+
+    .foot-grid { grid-template-columns: 1fr; gap: 24px; }
+    .foot-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+    /* install code block: shrink + allow wrap */
+    section#claw-install code { font-size: 11px; word-break: break-all; white-space: pre-wrap !important; }
+  }
 </style>
 </head>
 <body>
@@ -436,6 +466,7 @@
     </a>
     <div class="nav-links">
       <a href="#products">Products</a>
+      <a href="#claw-install">Install</a>
       <a href="#skills">Skills</a>
       <a href="#releases">Releases</a>
       <a href="https://github.com/mithraeums" target="_blank" rel="noopener">GitHub ↗</a>
@@ -451,10 +482,10 @@
     <div>
       <h1>
         <span class="small">— ORDO MITHRAEUM · MMXXVI —</span>
-        Tools from<br/>the inner<br/>chamber<span class="blink" style="color: var(--gold);">.</span>
+        Tools for<br/>the inner<br/>chamber<span class="blink" style="color: var(--gold);">.</span>
       </h1>
       <p class="lede">
-        Mithraeum builds <em>quiet</em> software for people who write code by hand. We make small, durable instruments: text editors, agents, and the local models that run them. Bring your own keys. Bring your own weights. Nothing phones home that you didn't tell it to. Our agent understands and holds onto context, so you're spending less time catching it up to speed and more time on your vision.
+        Mithraeum builds <em>quiet</em> software for people who write code by hand. We make small, durable instruments — text editors, agents, and the local models that run them. Bring your own keys. Bring your own weights. Nothing phones home that you didn't tell it to.
       </p>
       <div class="hero-meta">
         <span><b id="m-repo-count">3</b> repositories</span>
@@ -502,7 +533,7 @@
       <div class="tenet">
         <div class="tenet-num">— I —</div>
         <h3>Local first</h3>
-        <p>While our agent supports local and frontier models alike. We put local first; your text, your keys, your weights. No telemetry. No silent network. The cursor is a private place.</p>
+        <p>Your text, your keys, your weights. No telemetry. No silent network. The cursor is a private place.</p>
       </div>
       <div class="tenet">
         <div class="tenet-num">— II —</div>
@@ -558,27 +589,28 @@
       </article>
 
       <!-- ============== CLAW (REI) ============== -->
-      <article class="product" data-repo="mithraeums/skills">
+      <article class="product" data-repo="mithraeums/hakoCLAW">
         <div class="product-id">
           <div class="codename">— II — agent</div>
           <div class="name">hakoCLAW</div>
           <div class="latin">"rei" · the thing-itself</div>
-          <div class="status"><span class="dot"></span> stable · solo</div>
+          <div class="status"><span class="dot"></span> v0.1.2 · solo</div>
         </div>
         <div class="product-body">
-          <p>The agent that lives inside hako, addressable as <code style="color: var(--gold); font-family: 'JetBrains Mono', monospace;">:rei</code>. Customizable, model-agnostic, skill-driven. Runs against any provider you wire it to — including local weights through hakoAI when ready.</p>
-          <p style="color: var(--ash); font-size: 12px;">— Skills are markdown-defined behaviors. Drop a folder in <code style="color: var(--bone);">skills/</code> and CLAW invokes it. Community PRs welcome.</p>
+          <p>A standalone terminal agent in a single C file. Model-agnostic, skill-driven, and quiet — the binary is one file, your keys live on disk, the conversation never leaves your shell unless you tell it to. Inside hako it answers to <code style="color: var(--gold); font-family: 'JetBrains Mono', monospace;">:rei</code>; outside, it's <code style="color: var(--bone);">hakoc</code>.</p>
+          <p style="color: var(--ash); font-size: 12px;">— Skills are markdown-defined behaviors. Drop a folder in <code style="color: var(--bone);">skills/</code> and CLAW invokes it. Persistent session, resumable history, trust-gated tools. Community PRs welcome.</p>
           <div class="product-actions">
-            <a class="btn gold" href="#claw-curl" id="claw-curl-btn">curl install ↗</a>
-            <a class="btn" href="https://github.com/mithraeums/skills" target="_blank" rel="noopener">Skills repo</a>
+            <a class="btn gold" href="#claw-install" id="claw-curl-btn">curl install ↗</a>
+            <a class="btn" href="https://github.com/mithraeums/hakoCLAW" target="_blank" rel="noopener">Source ↗</a>
+            <a class="btn" href="https://github.com/mithraeums/hakoCLAW/releases" target="_blank" rel="noopener">Releases</a>
             <a class="btn" href="#skills">Browse skills</a>
           </div>
         </div>
         <div class="product-meta">
           <dl>
-            <dt>STATUS</dt><dd>standalone</dd>
+            <dt>STATUS</dt><dd>standalone CLI</dd>
             <dt>SKILLS</dt><dd data-field="skill-count">1</dd>
-            <dt>BACKENDS</dt><dd>any</dd>
+            <dt>BACKENDS</dt><dd>13+ providers</dd>
             <dt>UPDATED</dt><dd data-field="claw-updated">—</dd>
           </dl>
         </div>
@@ -597,7 +629,7 @@
           <p style="color: var(--ash); font-size: 12px;">— No cloud round-trip. No prompt logging. Architecture and training data documented when released.</p>
           <div class="product-actions">
             <button class="btn disabled" disabled>Repository · private</button>
-            <a class="btn" href="#claw-curl">Notify me</a>
+            <a class="btn" href="#claw-install">Notify me</a>
           </div>
         </div>
         <div class="product-meta">
@@ -609,6 +641,58 @@
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- INSTALL · CLAW                               -->
+<!-- ============================================ -->
+<section class="s" id="claw-install">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">II.b · Install</div>
+      <h2>One line, <em>any shell</em>.</h2>
+    </div>
+    <p style="max-width: 680px; color: var(--bone); font-size: 13px; margin: -32px 0 28px;">
+      The installer fetches the latest signed release for your OS and arch, verifies the sha256 sidecar, and drops <code style="color: var(--paper);">hakoc</code> into <code style="color: var(--paper);">~/.local/bin</code> (or <code style="color: var(--paper);">/usr/local/bin</code> if writable). No package manager, no daemon, no telemetry.
+    </p>
+
+    <div style="background: var(--shadow); border: 1px solid var(--rule-strong); padding: 20px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--paper); position: relative; overflow-x: auto;">
+      <div style="color: var(--ash); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;">— curl · macOS · Linux · FreeBSD · WSL —</div>
+      <code style="color: var(--bone); white-space: pre;">curl -fsSL https://mithraeums.github.io/install.sh | sh</code>
+    </div>
+
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 24px; color: var(--ash); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">
+      <span><b style="color: var(--paper);">macOS</b> universal2 · arm64 + x86_64</span>
+      <span><b style="color: var(--paper);">Linux</b> x86_64 · arm64</span>
+      <span><b style="color: var(--paper);">FreeBSD</b> x86_64</span>
+      <span><b style="color: var(--paper);">Windows</b> x86_64 · MinGW</span>
+    </div>
+
+    <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px;">
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--paper); margin: 0 0 8px;">Bring your own deity</h4>
+        <p style="color: var(--bone); font-size: 12px; margin: 0;">Anthropic, OpenAI, Gemini, Groq, Cerebras, DeepSeek, Mistral, Together, Fireworks, OpenRouter, xAI, Ollama, plus a <code>custom</code> hatch. Set a key, set a model, that's the wire.</p>
+      </div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--paper); margin: 0 0 8px;">Free tiers, real work</h4>
+        <p style="color: var(--bone); font-size: 12px; margin: 0;">Gemini, Groq, Cerebras, OpenRouter <code>:free</code>, Ollama local — claw runs against any of them with a single <code>/login</code>. No card. No quota dance.</p>
+      </div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--paper); margin: 0 0 8px;">Skills as memory</h4>
+        <p style="color: var(--bone); font-size: 12px; margin: 0;">Persistent sessions, JSONL history, resumable threads, trust-gated tools. The agent keeps context the way you keep notes — on disk, where you can read it.</p>
+      </div>
+      <div>
+        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--paper); margin: 0 0 8px;">Self-update</h4>
+        <p style="color: var(--bone); font-size: 12px; margin: 0;"><code>hakoc --update</code> pulls the latest release, verifies the hash, and atomically replaces the binary. No reinstall, no rebuild.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap;">
+      <a class="btn gold" href="https://github.com/mithraeums/hakoCLAW#readme" target="_blank" rel="noopener">Read the manual ↗</a>
+      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/releases" target="_blank" rel="noopener">Releases ↗</a>
+      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/blob/main/install.sh" target="_blank" rel="noopener">install.sh source</a>
     </div>
   </div>
 </section>
@@ -668,6 +752,12 @@
         <p class="release-msg" data-field="release-body">Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.</p>
         <div class="release-date" data-field="release-date">2026-05-02</div>
       </div>
+      <div class="release" data-repo="mithraeums/hakoCLAW">
+        <div class="release-tag"><span>CLAW</span><b data-field="release-tag">v0.1.2</b></div>
+        <h3 class="release-version" data-field="release-title">termios &amp; self-update</h3>
+        <p class="release-msg" data-field="release-body">Termios raw line editor with cursor keys, history (↑/↓), Home/End, kill-word. <code>--update</code> self-updater verifies sha256 before atomic-replacing the binary. Universal2 macOS, Linux arm64, FreeBSD x86_64 added to the release matrix.</p>
+        <div class="release-date" data-field="release-date">2026-05-10</div>
+      </div>
       <div class="release" data-repo="mithraeums/skills">
         <div class="release-tag"><span>SKILLS</span><b data-field="release-tag">— pre-1.0 —</b></div>
         <h3 class="release-version" data-field="release-title">read-pdf</h3>
@@ -712,6 +802,7 @@
         <ul>
           <li><a href="https://github.com/mithraeums" target="_blank" rel="noopener">github.com/mithraeums</a></li>
           <li><a href="https://github.com/mithraeums/hako" target="_blank" rel="noopener">/hako</a></li>
+          <li><a href="https://github.com/mithraeums/hakoCLAW" target="_blank" rel="noopener">/hakoCLAW</a></li>
           <li><a href="https://github.com/mithraeums/skills" target="_blank" rel="noopener">/skills</a></li>
         </ul>
       </div>
@@ -758,18 +849,20 @@
 <script type="application/json" id="mithraeum-data">
 {
   "repos": {
-    "hako":   { "version": "v0.0.9", "stars": 0, "updated": "2026-05-08", "license": "GPL-3.0", "lang": "C" },
-    "skills": { "version": "—",       "stars": 0, "updated": "2026-04-22", "skillCount": 1 },
-    "hakoAI": { "private": true }
+    "hako":     { "version": "v0.0.9", "stars": 0, "updated": "2026-05-08", "license": "GPL-3.0", "lang": "C" },
+    "hakoCLAW": { "version": "v0.1.2", "stars": 0, "updated": "2026-05-10", "license": "GPL-3.0", "lang": "C" },
+    "skills":   { "version": "—",       "stars": 0, "updated": "2026-04-22", "skillCount": 1 },
+    "hakoAI":   { "private": true }
   },
   "skills": [
     { "slug": "read-pdf", "title": "read-pdf", "summary": "Extracts text and structure from a PDF on disk. Handed to CLAW so the agent can answer questions about a document without re-uploading it.", "version": "v1" }
   ],
   "releases": [
-    { "repo": "hako",   "tag": "v0.0.9", "title": "caret & modes", "body": "Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.", "date": "2026-05-02" },
-    { "repo": "skills", "tag": "—",       "title": "read-pdf",      "body": "First skill landed. Defines the SKILL.md schema CLAW will load against. PRs open for community contributions.", "date": "2026-04-22" }
+    { "repo": "hakoCLAW", "tag": "v0.1.2", "title": "termios & self-update", "body": "Termios raw line editor with cursor keys, history, Home/End, kill-word. --update self-updater verifies sha256 before atomic-replacing the binary. Universal2 macOS, Linux arm64, FreeBSD x86_64 added.", "date": "2026-05-10" },
+    { "repo": "hako",     "tag": "v0.0.9", "title": "caret & modes",         "body": "Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.", "date": "2026-05-02" },
+    { "repo": "skills",   "tag": "—",       "title": "read-pdf",              "body": "First skill landed. Defines the SKILL.md schema CLAW will load against. PRs open for community contributions.", "date": "2026-04-22" }
   ],
-  "build": "2026-05-08"
+  "build": "2026-05-10"
 }
 </script>
 
