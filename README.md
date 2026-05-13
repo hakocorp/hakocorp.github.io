@@ -50,10 +50,22 @@
 
 <p align="center"><sub><b>—— II ——</b></sub></p>
 
-## Install (claw)
+## Install
+
+### hakoCLAW
 
 ```sh
-curl -fsSL https://mithraeums.github.io/install.sh | sh
+curl -fsSL https://mithraeums.github.io/hakoCLAW.sh | sh
+```
+
+<p align="center">
+  <sub><b>macOS</b> universal2 &nbsp;·&nbsp; <b>Linux</b> x86_64 / arm64 &nbsp;·&nbsp; <b>FreeBSD</b> x86_64 &nbsp;·&nbsp; <b>Windows</b> MinGW &nbsp;·&nbsp; <b>iSh</b></sub>
+</p>
+
+### hako
+
+```sh
+curl -fsSL https://mithraeums.github.io/hako.sh | sh
 ```
 
 <p align="center">
@@ -62,7 +74,7 @@ curl -fsSL https://mithraeums.github.io/install.sh | sh
 
 <p align="center"><sub><b>—— III ——</b></sub></p>
 
-## Creed
+## Motive
 
 <table>
   <tr>

@@ -566,7 +566,7 @@
           <div class="codename">— I — editor</div>
           <div class="name">hako<span style="color: var(--gold);">_</span></div>
           <div class="latin">箱 · the box</div>
-          <div class="status"><span class="dot"></span> stable</div>
+          <div class="status"><span class="dot"></span> v0.1.1 · stable</div>
         </div>
         <div class="product-body">
           <p>A single-file modal text editor written in C. Vi-bound, language-aware, and built to last a decade. Hako is the workspace — a quiet box around the cursor where everything else hangs off.</p>
@@ -579,10 +579,10 @@
         </div>
         <div class="product-meta">
           <dl>
-            <dt>VERSION</dt><dd data-field="version">v0.0.9</dd>
+            <dt>VERSION</dt><dd data-field="version">v0.1.1</dd>
             <dt>LANG</dt><dd data-field="lang">C</dd>
             <dt>STARS</dt><dd data-field="stars">—</dd>
-            <dt>UPDATED</dt><dd data-field="updated">2026-05-08</dd>
+            <dt>UPDATED</dt><dd data-field="updated">2026-05-13</dd>
             <dt>LICENSE</dt><dd data-field="license">GPL-3.0</dd>
           </dl>
         </div>
@@ -594,7 +594,7 @@
           <div class="codename">— II — agent</div>
           <div class="name">hakoCLAW</div>
           <div class="latin">"rei" · the thing-itself</div>
-          <div class="status"><span class="dot"></span> v0.1.2 · solo</div>
+          <div class="status"><span class="dot"></span> v0.1.3 · solo</div>
         </div>
         <div class="product-body">
           <p>A standalone terminal agent in a single C file. Model-agnostic, skill-driven, and quiet — the binary is one file, your keys live on disk, the conversation never leaves your shell unless you tell it to. Inside hako it answers to <code style="color: var(--gold); font-family: 'JetBrains Mono', monospace;">:rei</code>; outside, it's <code style="color: var(--bone);">hakoc</code>.</p>
@@ -651,16 +651,21 @@
 <section class="s" id="claw-install">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">II.b · Install</div>
-      <h2>One line, <em>any shell</em>.</h2>
+      <div class="section-eyebrow">— II.b — Install</div>
+      <h2>One line, <em>either chamber</em>.</h2>
     </div>
     <p style="max-width: 680px; color: var(--bone); font-size: 13px; margin: -32px 0 28px;">
-      The installer fetches the latest signed release for your OS and arch, verifies the sha256 sidecar, and drops <code style="color: var(--paper);">hakoc</code> into <code style="color: var(--paper);">~/.local/bin</code> (or <code style="color: var(--paper);">/usr/local/bin</code> if writable). No package manager, no daemon, no telemetry.
+      The installer fetches the latest signed release for your OS and arch, verifies the sha256 sidecar, and drops the binary into <code style="color: var(--paper);">~/.local/bin</code> (or <code style="color: var(--paper);">/usr/local/bin</code> if writable). No package manager, no daemon, no telemetry. CLAW installs <code style="color: var(--paper);">hakoc</code>; hako installs <code style="color: var(--paper);">hako</code> — same script shape, different binary.
     </p>
 
     <div style="background: var(--shadow); border: 1px solid var(--rule-strong); padding: 20px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--paper); position: relative; overflow-x: auto;">
-      <div style="color: var(--ash); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;">— curl · macOS · Linux · FreeBSD · WSL —</div>
-      <code style="color: var(--bone); white-space: pre;">curl -fsSL https://mithraeums.github.io/install.sh | sh</code>
+      <div style="color: var(--ash); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;">— CLAW · agent · curl —</div>
+      <code style="color: var(--bone); white-space: pre;">curl -fsSL https://mithraeums.github.io/hakoCLAW.sh | sh</code>
+    </div>
+
+    <div style="background: var(--shadow); border: 1px solid var(--rule-strong); padding: 20px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--paper); position: relative; overflow-x: auto; margin-top: 14px;">
+      <div style="color: var(--ash); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;">— HAKO · editor · curl —</div>
+      <code style="color: var(--bone); white-space: pre;">curl -fsSL https://mithraeums.github.io/hako.sh | sh</code>
     </div>
 
     <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 24px; color: var(--ash); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">
@@ -690,9 +695,12 @@
     </div>
 
     <div style="margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap;">
-      <a class="btn gold" href="https://github.com/mithraeums/hakoCLAW#readme" target="_blank" rel="noopener">Read the manual ↗</a>
-      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/releases" target="_blank" rel="noopener">Releases ↗</a>
-      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/blob/main/install.sh" target="_blank" rel="noopener">install.sh source</a>
+      <a class="btn gold" href="https://github.com/mithraeums/hakoCLAW#readme" target="_blank" rel="noopener">CLAW manual ↗</a>
+      <a class="btn gold" href="https://github.com/mithraeums/hako#readme" target="_blank" rel="noopener">hako manual ↗</a>
+      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/releases" target="_blank" rel="noopener">CLAW releases</a>
+      <a class="btn" href="https://github.com/mithraeums/hako/releases" target="_blank" rel="noopener">hako releases</a>
+      <a class="btn" href="https://github.com/mithraeums/hakoCLAW/blob/main/install.sh" target="_blank" rel="noopener">CLAW install.sh</a>
+      <a class="btn" href="https://github.com/mithraeums/hako/blob/main/install.sh" target="_blank" rel="noopener">hako install.sh</a>
     </div>
   </div>
 </section>
@@ -746,17 +754,17 @@
       <h2>Latest from <em>each chamber</em>.</h2>
     </div>
     <div class="releases" id="releases-grid">
-      <div class="release" data-repo="mithraeums/hako">
-        <div class="release-tag"><span>HAKO</span><b data-field="release-tag">v0.0.9</b></div>
-        <h3 class="release-version" data-field="release-title">caret &amp; modes</h3>
-        <p class="release-msg" data-field="release-body">Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.</p>
-        <div class="release-date" data-field="release-date">2026-05-02</div>
-      </div>
       <div class="release" data-repo="mithraeums/hakoCLAW">
-        <div class="release-tag"><span>CLAW</span><b data-field="release-tag">v0.1.2</b></div>
-        <h3 class="release-version" data-field="release-title">termios &amp; self-update</h3>
-        <p class="release-msg" data-field="release-body">Termios raw line editor with cursor keys, history (↑/↓), Home/End, kill-word. <code>--update</code> self-updater verifies sha256 before atomic-replacing the binary. Universal2 macOS, Linux arm64, FreeBSD x86_64 added to the release matrix.</p>
-        <div class="release-date" data-field="release-date">2026-05-10</div>
+        <div class="release-tag"><span>CLAW</span><b data-field="release-tag">v0.1.3</b></div>
+        <h3 class="release-version" data-field="release-title">tools &amp; banner</h3>
+        <p class="release-msg" data-field="release-body">Gemini tool-call fix — <code>tool_calls</code> and <code>tool_call_id</code> preserved end-to-end. New framed banner with <code># NEW</code> and <code># TIPS</code>. <code>/models</code> lists installed ollama models. Read/write byte-exact on Windows.</p>
+        <div class="release-date" data-field="release-date">2026-05-13</div>
+      </div>
+      <div class="release" data-repo="mithraeums/hako">
+        <div class="release-tag"><span>HAKO</span><b data-field="release-tag">v0.1.1</b></div>
+        <h3 class="release-version" data-field="release-title">windows + iSh + splash</h3>
+        <p class="release-msg" data-field="release-body">Windows link error fixed (<code>detectTerminalType</code> moved outside POSIX block). iSh defenses: <code>gridResize</code> caps, bounded skill loader, session resume on fresh setups. Splash gained <code># NEW</code> + <code># TIPS</code>.</p>
+        <div class="release-date" data-field="release-date">2026-05-13</div>
       </div>
       <div class="release" data-repo="mithraeums/skills">
         <div class="release-tag"><span>SKILLS</span><b data-field="release-tag">— pre-1.0 —</b></div>
@@ -849,8 +857,8 @@
 <script type="application/json" id="mithraeum-data">
 {
   "repos": {
-    "hako":     { "version": "v0.0.9", "stars": 0, "updated": "2026-05-08", "license": "GPL-3.0", "lang": "C" },
-    "hakoCLAW": { "version": "v0.1.2", "stars": 0, "updated": "2026-05-10", "license": "GPL-3.0", "lang": "C" },
+    "hako":     { "version": "v0.1.1", "stars": 0, "updated": "2026-05-13", "license": "GPL-3.0", "lang": "C" },
+    "hakoCLAW": { "version": "v0.1.3", "stars": 0, "updated": "2026-05-13", "license": "GPL-3.0", "lang": "C" },
     "skills":   { "version": "—",       "stars": 0, "updated": "2026-04-22", "skillCount": 1 },
     "hakoAI":   { "private": true }
   },
@@ -858,11 +866,13 @@
     { "slug": "read-pdf", "title": "read-pdf", "summary": "Extracts text and structure from a PDF on disk. Handed to CLAW so the agent can answer questions about a document without re-uploading it.", "version": "v1" }
   ],
   "releases": [
+    { "repo": "hakoCLAW", "tag": "v0.1.3", "title": "tools + banner", "body": "Gemini tool-call fix (preserves tool_calls + tool_call_id). /models lists installed ollama models. Ollama endpoint-leak on provider swap fixed. New framed banner with # NEW + # TIPS sections. Read/write byte-exact on Windows.", "date": "2026-05-13" },
+    { "repo": "hako",     "tag": "v0.1.1", "title": "windows + iSh + splash", "body": "Windows link error fixed (detectTerminalType moved outside POSIX block). iSh defenses: gridResize caps, bounded skill loader, hkLoadSession on first launch. Splash gained # NEW + # TIPS.", "date": "2026-05-13" },
     { "repo": "hakoCLAW", "tag": "v0.1.2", "title": "termios & self-update", "body": "Termios raw line editor with cursor keys, history, Home/End, kill-word. --update self-updater verifies sha256 before atomic-replacing the binary. Universal2 macOS, Linux arm64, FreeBSD x86_64 added.", "date": "2026-05-10" },
     { "repo": "hako",     "tag": "v0.0.9", "title": "caret & modes",         "body": "Block caret refinements, two new syntax modes, sigil-based status line, opt-in mouse support. Configuration moved to a single header.", "date": "2026-05-02" },
     { "repo": "skills",   "tag": "—",       "title": "read-pdf",              "body": "First skill landed. Defines the SKILL.md schema CLAW will load against. PRs open for community contributions.", "date": "2026-04-22" }
   ],
-  "build": "2026-05-10"
+  "build": "2026-05-13"
 }
 </script>
 
